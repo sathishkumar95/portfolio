@@ -2,7 +2,9 @@
   "name": "stellar-chaos",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://sathishkumar95.github.io/stellar-chaos",
   "scripts": {
+    "deploy": "gh-pages -d build",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
@@ -16,5 +18,8 @@
     "class-variance-authority": "^0.7.0",
     "flowbite": "^2.3.0",
     "typescript": "^5.4.4"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
