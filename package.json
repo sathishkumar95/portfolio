@@ -2,7 +2,6 @@
   "name": "stellar-chaos",
   "type": "module",
   "version": "0.0.1",
-  "homepage": "https://sathishkumar95.github.io/stellar-chaos",
   "scripts": {
     "deploy": "gh-pages -d build",
     "dev": "astro dev",

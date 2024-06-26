@@ -2,53 +2,51 @@
 import Hero from "../components/Hero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Toast from "astro-toast";
-
 ---
 
-
 <BaseLayout>
-
-  <script> 
-    
-
+  <script>
     //this is an example
-// async function logMovies() {
-//   fetch('https://jsonplaceholder.typicode.com/posts/1')
-//   .then((response) => response.json())
-//   .then((json) => console.log(json));
-// }
+    // async function logMovies() {
+    //   fetch('https://jsonplaceholder.typicode.com/posts/1')
+    //   .then((response) => response.json())
+    //   .then((json) => console.log(json));
+    // }
 
-async function callWebforms(object) {
-  fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: object
-        })
-        .then((json) => successToast(json));
-        
-}
+    import type { any } from "astro/zod";
 
-function validateEmail (email) {
-  return String(email)
-    .toLowerCase()
-    .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-}
+    async function callWebforms(object: any) {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: object,
+      }).then((json) => successToast(json));
+    }
 
-function successToast(responseJson) {
-  alert();
-}
-    
-    document.getElementById("submit").onclick = function () { 
+    function validateEmail(email: any) {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        );
+    }
+
+    function successToast(responseJson: any) {
+      alert();
+    }
+
+    document.getElementById("submit")!.onclick = function () {
       // var access_key = "35558b3a-79cc-40e0-b619-ecab9cfe045c";
       // alert("button clicked");
-      var name = document.getElementById("name").value;
-      var email = document.getElementById("email").value;
-      var message = document.getElementById("message").value;
+      var name = (document.getElementById("name") as HTMLInputElement).value;
+      var email = (document.getElementById("email") as HTMLInputElement).value;
+      var message = (document.getElementById("message") as HTMLInputElement)
+        .value;
       var access_key = "35558b3a-79cc-40e0-b619-ecab9cfe045c";
-      if (!name || !email|| !message) {
+      if (!name || !email || !message) {
         // alert("Fill in all the fields!");
         return;
       }
@@ -57,79 +55,99 @@ function successToast(responseJson) {
         return;
       }
       var object = {
-        "name" : name,
-        "email" : email,
-        "message" : message,
-        "access_key" : access_key
-      }
-      alert("this should not be executed");
+        name: name,
+        email: email,
+        message: message,
+        access_key: access_key,
+      };
       const json = JSON.stringify(object);
       // working code
       callWebforms(json);
-    }
-    
-    </script>
+    };
+  </script>
   <!-- <Hero title="Contact" tagline="Get in touch" /> -->
   <Hero title="Get in touch" />
   <!-- <h1 class="sub-header">Get in touch</h1> -->
-  <form id="contact-form"> 
-     
-    <input type="hidden" name="access_key" value=""> 
+  <form id="contact-form">
+    <input type="hidden" name="access_key" value="" />
     <!-- <input type="hidden" name="redirect" value="https://yourwebsite.com/thanks.html">    -->
-    <input id="name" name="name" type="text" class="feedback-input" placeholder="Name" required />   
-    <input id="email" name="email" type="text" class="feedback-input" placeholder="Email" required />
-    <textarea id="message" name="text" class="feedback-input" placeholder="Comment" required ></textarea>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      class="feedback-input"
+      placeholder="Name"
+      required
+    />
+    <input
+      id="email"
+      name="email"
+      type="text"
+      class="feedback-input"
+      placeholder="Email"
+      required
+    />
+    <textarea
+      id="message"
+      name="text"
+      class="feedback-input"
+      placeholder="Comment"
+      required></textarea>
     <!-- <div class="h-captcha" data-sitekey="15deb2ef-85c2-47f8-b29b-83a52f1775c7"></div> -->
     <input id="submit" type="submit" value="SUBMIT" />
   </form>
-  <Toast variant="success" where="bottom-center" >Email Sent successfully</Toast>
-
-
+  <Toast variant="success" where="bottom-center">Email Sent successfully</Toast>
 </BaseLayout>
- 
 
 <style>
-form { max-width:420px; margin:50px auto; }
+  form {
+    max-width: 420px;
+    margin: 50px auto;
+  }
 
-.feedback-input {
-  color:black;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight:500;
-  font-size: 18px;
-  border-radius: 5px;
-  line-height: 22px;
-  background-color: transparent;
-  border:2px solid #C8AADA;
-  transition: all 0.3s;
-  padding: 13px;
-  margin-bottom: 15px;
-  width:100%;
-  box-sizing: border-box;
-  outline:0;
-}
+  .feedback-input {
+    color: black;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 5px;
+    line-height: 22px;
+    background-color: transparent;
+    border: 2px solid #c8aada;
+    transition: all 0.3s;
+    padding: 13px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: 0;
+  }
 
-.feedback-input:focus { border:2px solid #7431B2; }
+  .feedback-input:focus {
+    border: 2px solid #7431b2;
+  }
 
-textarea {
-  height: 150px;
-  line-height: 150%;
-  resize:vertical;
-}
+  textarea {
+    height: 150px;
+    line-height: 150%;
+    resize: vertical;
+  }
 
-[type="submit"] {
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-  width: 100%;
-  background:#C8AADA;
-  border-radius:5px;
-  border:0;
-  cursor:pointer;
-  color:white;
-  font-size:24px;
-  padding-top:10px;
-  padding-bottom:10px;
-  transition: all 0.3s;
-  margin-top:-4px;
-  font-weight:700;
-}
-[type="submit"]:hover { background:#7431B2; }
+  [type="submit"] {
+    font-family: "Montserrat", Arial, Helvetica, sans-serif;
+    width: 100%;
+    background: #c8aada;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    margin-top: -4px;
+    font-weight: 700;
+  }
+  [type="submit"]:hover {
+    background: #7431b2;
+  }
 </style>
